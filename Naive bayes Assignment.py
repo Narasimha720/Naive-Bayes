@@ -114,6 +114,51 @@ print("Testing Accuracy score : ",AC2.round(3))
 #=======================================================================================
 
 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+
+# Random Forest
+rf_model = RandomForestClassifier()
+rf_model.fit(X_train, Y_train)
+rf_pred_train = rf_model.predict(X_train)
+rf_pred_test = rf_model.predict(X_test)
+
+# Support Vector Machine
+svm_model = SVC()
+svm_model.fit(X_train, Y_train)
+svm_pred_train = svm_model.predict(X_train)
+svm_pred_test = svm_model.predict(X_test)
+
+# Logistic Regression
+lr_model = LogisticRegression()
+lr_model.fit(X_train, Y_train)
+lr_pred_train = lr_model.predict(X_train)
+lr_pred_test = lr_model.predict(X_test)
+
+# Evaluate models
+def evaluate_model(y_true, y_pred, model_name):
+    accuracy = accuracy_score(y_true, y_pred)
+    print(f"{model_name} - Accuracy: {accuracy.round(3)}")
+    print(f"{model_name} - Classification Report:")
+    print(classification_report(y_true, y_pred))
+
+# Evaluate Naive Bayes
+evaluate_model(Y_train, Y_pred_train, "Naive Bayes (Train)")
+evaluate_model(Y_test, Y_pred_test, "Naive Bayes (Test)")
+
+# Evaluate Random Forest
+evaluate_model(Y_train, rf_pred_train, "Random Forest (Train)")
+evaluate_model(Y_test, rf_pred_test, "Random Forest (Test)")
+
+# Evaluate Support Vector Machine
+evaluate_model(Y_train, svm_pred_train, "SVM (Train)")
+evaluate_model(Y_test, svm_pred_test, "SVM (Test)")
+
+# Evaluate Logistic Regression
+evaluate_model(Y_train, lr_pred_train, "Logistic Regression (Train)")
+evaluate_model(Y_test, lr_pred_test, "Logistic Regression (Test)")
 
 
 
